@@ -38,10 +38,10 @@ for (const file of addons) {
 }
 
 
-SetConvarReplicated("zdiscord_servername", z.config.FiveMServerName);
-SetConvarReplicated("zdiscord_discordinvite", z.config.DiscordInviteLink);
-SetConvarReplicated("zdiscord_serverip", z.config.FiveMServerIP);
-SetConvarReplicated("zdiscord_userpresence", String(z.config.enableUserPresence));
+SetConvarReplicated("ciscodiscord_servername", z.config.FiveMServerName);
+SetConvarReplicated("ciscodiscord_discordinvite", z.config.DiscordInviteLink);
+SetConvarReplicated("ciscodiscord_serverip", z.config.FiveMServerIP);
+SetConvarReplicated("ciscodiscord_userpresence", String(z.config.enableUserPresence));
 
 on("playerConnecting", async (name, setKickReason, deferrals) => {
     const player = source;
@@ -72,7 +72,7 @@ on("playerJoining", (oldId) => {
         }
     }
     if (z.bot.isRolePresent(member, z.config.StaffChatRoleIds)) {
-        ExecuteCommand(`add_principal "player.${source}" group.zdiscordstaff`);
+        ExecuteCommand(`add_principal "player.${source}" group.ciscodiscordstaff`);
     }
 });
 
@@ -88,7 +88,7 @@ on("playerDropped", (reason) => {
 
 if (z.config.EnableStaffChatForwarding) {
     RegisterCommand("staff", (source, args, raw) => {
-        if (!IsPlayerAceAllowed(source, "zdiscord.staffchat")) return;
+        if (!IsPlayerAceAllowed(source, "ciscodiscord.staffchat")) return;
         z.utils.sendStaffChatMessage(z, GetPlayerName(source), raw.substring(6));
         if (!z.config.EnableDiscordBot) return;
         const staffChannel = z.bot.channels.cache.get(z.config.DiscordStaffChannelId);
@@ -99,13 +99,13 @@ if (z.config.EnableStaffChatForwarding) {
     }, false);
 
     RegisterCommand("stafftoggle", (source, args, raw) => {
-        if (IsPlayerAceAllowed(source, "zdiscord.staffchat")) {
-            ExecuteCommand(`remove_principal "player.${source}" group.zdiscordstaff`);
+        if (IsPlayerAceAllowed(source, "ciscodiscord.staffchat")) {
+            ExecuteCommand(`remove_principal "player.${source}" group.ciscodiscordstaff`);
             z.utils.chatMessage(source, z.locale.staffchat, "Staff chat disabled.", { color: [ 255, 255, 0 ] });
         } else {
             const member = z.bot.getMemberFromSource(source);
             if (z.bot.isRolePresent(member, z.config.StaffChatRoleIds)) {
-                ExecuteCommand(`add_principal "player.${source}" group.zdiscordstaff`);
+                ExecuteCommand(`add_principal "player.${source}" group.ciscodiscordstaff`);
                 z.utils.chatMessage(source, z.locale.staffchat, "Staff chat enabled.", { color: [ 255, 255, 0 ] });
             }
         }
