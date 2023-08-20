@@ -125,7 +125,7 @@ const log = {
      * @param {object} settings - Optional overrides of style and label */
     write: (content, { color = "\x1b[37m", tag = "LOG", error = false } = {}) => {
         const stream = error ? process.stderr : process.stdout;
-        stream.write(`\x1b[1;36m[zdiscord]\x1b[0m[${log.timestamp()}]${color}[${tag}]: ${log.clean(content)}\x1b[0m\n`);
+        stream.write(`\x1b[1;36m[ciscodiscord]\x1b[0m[${log.timestamp()}]${color}[${tag}]: ${log.clean(content)}\x1b[0m\n`);
         return false;
     },
 
@@ -138,12 +138,12 @@ const log = {
         return cleaned;
     },
 
-    /** Special case log handler for zdiscord specifc logs
+    /** Special case log handler for ciscodiscord specifc logs
      *  Or just outright void spammy logging (heartbeats)
      * @param {string|object} err - error to process */
     handler: (type, err) => {
         const e = err.toString();
-        if (e.includes("[DISALLOWED_INTENTS]")) log.error("YOU DIDN'T ENABLE INTENTS - go back to the zdiscord readme.md and read the section under \"setup\"");
+        if (e.includes("[DISALLOWED_INTENTS]")) log.error("YOU DIDN'T ENABLE INTENTS - go back to the ciscodiscord readme.md and read the section under \"setup\"");
         else if (e.includes("[TOKEN_INVALID]")) log.error("YOUR DISCORD API TOKEN IS INVALID OR REVOKED - GENERATE A NEW ONE AND UPDATE THE CONFIG");
         else if (e.includes("Missing Access")) log.error("NO COMMAND CREATION PERMISSIONS - You must reinvite the bot to your server with the invite link provided in setup");
         else if (e.includes("[HeartbeatTimer]")) return;
@@ -154,7 +154,7 @@ const log = {
         else log.log(e);
     },
 
-    /** Special case error handler for zdiscord specifc errors
+    /** Special case error handler for ciscodiscord specifc errors
      * @param {boolean} statement - Statement to check (true = throw error)
      * @param {string} error - Message to throw if bool is true */
     assert: (statement, error) => {
@@ -182,7 +182,7 @@ exports.isValidID = isValidID;
 const sendStaffChatMessage = (z, name, msg) => {
     if (!msg) return;
     getPlayers().forEach(async function(player, index, array) {
-        if (IsPlayerAceAllowed(player, "zdiscord.staffchat")) {
+        if (IsPlayerAceAllowed(player, "ciscodiscord.staffchat")) {
             chatMessage(player, `[${z.locale.staffchat}] ${name}`, msg, { multiline: false, color: [ 255, 100, 0 ] });
         }
     });
