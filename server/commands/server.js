@@ -40,7 +40,7 @@ module.exports = {
                 .addField(client.config.FiveMServerName, `**Server IP:** ${client.config.FiveMServerIP}
                     **Uptime:** ${(GetGameTimer() / 1000 / 60).toFixed(2)} minutes
                     **Players:** ${GetNumPlayerIndices()}/${GetConvar("sv_maxClients", "Unknown")}`, false)
-                .setFooter({ text: "zdiscord by zfbx" });
+                .setFooter({ text: "CiscoDiscord by Cisco" });
             return interaction.reply({ embeds: [ embed ] });
         }
     },
